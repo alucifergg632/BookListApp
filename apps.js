@@ -12,13 +12,13 @@ class UI {
 
 		const books = Store.getBooks();
 
-		books.forEach((book) => UI.addBookList(book));
+		books.forEach((book) => UI.addBookList(book)); //book is an instance of Book class insatntiated in 'Event: Add Book' dowm
 	}
 	
 	static addBookList(book){
 		const list = document.querySelector('#book-list');
 
-		const row  = document.createElement('tr')
+		const row  = document.createElement('tr')  
 
 		row.innerHTML = `
 			<td>${book.title}</td>
@@ -44,16 +44,15 @@ class UI {
 		const container = document.querySelector(' .container');
 		const form = document.querySelector('#book-form');
 		container.insertBefore(div,form);
-		// Vanish in 3 seconds
-		setTimeout(() => document.querySelector('.alert').remove(),2000);
+		// Vanish in .5 seconds
+		setTimeout(() => document.querySelector('.alert').remove(),500);
 	}
 
 	static clearFields(){
 		document.querySelector('#title').value = '';
 		document.querySelector('#author').value = '';
 		document.querySelector('#isbn').value = '';
-
-
+	
 	}
 }
 //Store Class: Handles Storage
@@ -75,7 +74,7 @@ class Store{
 
 		books.push(book);
 
-		localStorage.setItem('books',JSON.stringify(books));
+		localStorage.setItem('books',JSON.stringify(books)); // key-> books value->stringified books
 
 
 	}
@@ -83,7 +82,7 @@ class Store{
 		const books = Store.getBooks();
 
 		books.forEach((book,index) => {
-			if(book.isbn === isbn) {
+			if(book.isbn === isbn){
 				books.splice(index,1)
 			}
 		});
@@ -94,10 +93,10 @@ class Store{
 
 //Event: Display Books
 
-document.addEventListener('DOMContentLoaded',UI.displayBooks);
+document.addEventListener('DOMContentLoaded',UI.displayBooks);//start of the script
 
-//Event: Add a Book
-document.querySelector('#book-form').addEventListener('submit',(e) => {
+//Event: Add a Book 
+document.querySelector('#book-form').addEventListener('submit',(e) => { //e is the  icon which is clicked
 		//Prevent actual submit
 		e.preventDefault();
  		//Get form values
@@ -121,7 +120,7 @@ document.querySelector('#book-form').addEventListener('submit',(e) => {
 	 		// Show success message
 	 		UI.showAlert('Book Added','success')
 
-	 		//Clear fields
+	 		//Clear fields from the input fields for the next set of inputs.
 	 		UI.clearFields()
  	}
 });
